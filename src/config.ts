@@ -7,9 +7,12 @@ const EnvSchema = z.object({
   AZURE_CLIENT_SECRET: z.string().min(1),
   MAILBOX_USER_ID: z.string().email(),
   ANTHROPIC_API_KEY: z.string().min(1),
-  WHATSAPP_ACCESS_TOKEN: z.string().min(1),
-  WHATSAPP_PHONE_NUMBER_ID: z.string().min(1),
-  WHATSAPP_BUSINESS_ACCOUNT_ID: z.string().min(1),
+  // WhatsApp — optional; notify_whatsapp actions are skipped if absent
+  WHATSAPP_ACCESS_TOKEN: z.string().min(1).optional(),
+  WHATSAPP_PHONE_NUMBER_ID: z.string().min(1).optional(),
+  WHATSAPP_BUSINESS_ACCOUNT_ID: z.string().min(1).optional(),
+  // Teams — optional; notify_teams actions are skipped if absent
+  TEAMS_WEBHOOK_URL: z.string().url().optional(),
   POLL_INTERVAL_MS: z.coerce.number().int().positive().default(60_000),
   LOG_LEVEL: z.enum(["trace", "debug", "info", "warn", "error", "fatal"]).default("info"),
 });

@@ -1,8 +1,9 @@
-import { contacts } from "../config.js";
+import { contacts, config } from "../config.js";
 import { logger } from "../logger.js";
 import { sendReply, sendEmail } from "../graph/mail.js";
 import type { GraphEmail } from "../graph/types.js";
 import { sendWhatsAppNotification } from "../whatsapp/client.js";
+import { sendTeamsNotification } from "../teams/client.js";
 import type { ClaudeAction, SubAction } from "../claude/types.js";
 
 function findContact(contactId: string) {
@@ -23,12 +24,26 @@ async function executeSubAction(
     }
 
     case "notify_whatsapp": {
+      if (!config.WHATSAPP_ACCESS_TOKEN) {
+        logger.warn({ emailId: email.id }, "WhatsApp not configured — skipping notify_whatsapp");
+        break;
+      }
       const contact = findContact(subAction.contactId);
       logger.info(
         { emailId: email.id, contactId: contact.id, to: contact.whatsapp },
         "Sending WhatsApp notification"
       );
       await sendWhatsAppNotification(contact.whatsapp, subAction.message);
+      break;
+    }
+
+    case "notify_teams": {
+      if (!config.TEAMS_WEBHOOK_URL) {
+        logger.warn({ emailId: email.id }, "Teams not configured — skipping notify_teams");
+        break;
+      }
+      logger.info({ emailId: email.id }, "Sending Teams notification");
+      await sendTeamsNotification(subAction.subject, subAction.message);
       break;
     }
 

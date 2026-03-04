@@ -18,6 +18,12 @@ const NotifyEmailAction = z.object({
   body: z.string().min(1),
 });
 
+const NotifyTeamsAction = z.object({
+  action: z.literal("notify_teams"),
+  subject: z.string().min(1),
+  message: z.string().min(1),
+});
+
 const IgnoreAction = z.object({
   action: z.literal("ignore"),
   reason: z.string().optional(),
@@ -28,6 +34,7 @@ const SubAction = z.discriminatedUnion("action", [
   ReplyEmailAction,
   NotifyWhatsAppAction,
   NotifyEmailAction,
+  NotifyTeamsAction,
   IgnoreAction,
 ]);
 
@@ -40,6 +47,7 @@ export const ClaudeActionSchema = z.discriminatedUnion("action", [
   ReplyEmailAction,
   NotifyWhatsAppAction,
   NotifyEmailAction,
+  NotifyTeamsAction,
   IgnoreAction,
   MultiAction,
 ]);

@@ -23,6 +23,9 @@ Respond with ONLY a valid JSON object matching one of these schemas — no markd
 ### notify_whatsapp
 {"action":"notify_whatsapp","contactId":"<id>","message":"<text>"}
 
+### notify_teams
+{"action":"notify_teams","subject":"<subject>","message":"<text>"}
+
 ### notify_email
 {"action":"notify_email","contactId":"<id>","subject":"<subject>","body":"<body>"}
 
@@ -34,7 +37,8 @@ Respond with ONLY a valid JSON object matching one of these schemas — no markd
 
 ## Decision guidelines
 - Reply to legitimate business enquiries with a helpful auto-response.
-- Notify the most relevant internal contact via WhatsApp for urgent matters.
+- Notify the most relevant internal contact via Teams (notify_teams) for urgent matters.
+- Use notify_whatsapp only for critical out-of-hours alerts where immediate attention is needed.
 - Use notify_email for non-urgent internal escalations.
 - Ignore spam, newsletters, automated notifications, out-of-office replies, and delivery reports.
 - For complex situations, combine actions using multi.
