@@ -1,0 +1,26 @@
+{
+  "name": "email-agent",
+  "version": "1.0.0",
+  "description": "Autonomous email agent using Microsoft Graph and Claude",
+  "type": "module",
+  "scripts": {
+    "dev": "bun --watch src/index.ts",
+    "start": "bun src/index.ts",
+    "setup": "bun scripts/setup.ts",
+    "check": "tsc --noEmit && pnpm lint",
+    "lint": "eslint src scripts --ext .ts"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.36.3",
+    "@azure/msal-node": "^2.16.2",
+    "pino": "^9.6.0",
+    "pino-pretty": "^13.0.0",
+    "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "@inquirer/prompts": "^7.3.2",
+    "@types/bun": "^1.2.5",
+    "@types/node": "^22.13.5",
+    "typescript": "^5.7.3"
+  }
+}

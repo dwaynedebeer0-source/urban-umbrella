@@ -1,0 +1,9 @@
+[
+  {
+    "id": "example-contact-1",
+    "name": "Jane Smith",
+    "email": "jane@company.com",
+    "whatsapp": "+15550001234",
+    "role": "Sales Manager"
+  }
+]
